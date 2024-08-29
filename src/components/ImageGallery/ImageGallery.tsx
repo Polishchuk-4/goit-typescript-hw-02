@@ -2,7 +2,23 @@ import ImageCard from "../ImageCard/ImageCard";
 
 import style from "./ImageGallery.module.css";
 
-export default function ImageGallery({ gallery, openModal }) {
+interface Image {
+  id: string;
+  urls: {
+    small: string;
+  };
+  alt_description: string;
+}
+
+type ImageGalleryProps = {
+  gallery: Image[];
+  openModal: (image: Image) => void;
+};
+
+export default function ImageGallery({
+  gallery,
+  openModal,
+}: ImageGalleryProps) {
   return (
     <ul className={style.imageGallery}>
       {gallery.map((image) => {

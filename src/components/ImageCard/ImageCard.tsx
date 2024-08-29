@@ -1,6 +1,12 @@
 import style from "./ImageCard.module.css";
 
-export default function ImageCard({ url, description, openModal }) {
+type Props = {
+  url: string;
+  description: string;
+  openModal: () => void;
+};
+
+export default function ImageCard({ url, description, openModal }: Props) {
   return (
     <div className={style.imageCard}>
       <img
