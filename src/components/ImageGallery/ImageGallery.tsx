@@ -2,13 +2,7 @@ import ImageCard from "../ImageCard/ImageCard";
 
 import style from "./ImageGallery.module.css";
 
-interface Image {
-  id: string;
-  urls: {
-    small: string;
-  };
-  alt_description: string;
-}
+import { Image } from "../types";
 
 type ImageGalleryProps = {
   gallery: Image[];

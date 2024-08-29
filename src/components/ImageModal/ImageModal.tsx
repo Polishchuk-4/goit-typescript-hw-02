@@ -3,7 +3,6 @@ import Modal from "react-modal";
 import { format } from "date-fns";
 
 import style from "./ImageModal.module.css";
-
 const customStyles = {
   content: {
     width: "80vw",
@@ -15,13 +14,13 @@ const customStyles = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "column" as "column",
     alignItems: "center",
     justifyContent: "start",
     padding: "0",
   },
   overlay: {
-    backgroundColor: "rgb(32 32 32 / 75%)",
+    backgroundColor: "rgba(32, 32, 32, 0.75)",
   },
 };
 
@@ -44,8 +43,8 @@ export default function ImageModal({
   imgLikes,
   imgCreated,
 }: ImageModalProps) {
-  const date = new Date(imgCreated);
-  const formattedDate = format(date, "dd.MM.yyyy");
+  const date = new Date(imgCreated as string);
+  const formattedDate: string = format(date, "dd.MM.yyyy");
 
   return (
     <Modal isOpen={isOpen} onRequestClose={closeModal} style={customStyles}>

@@ -3,21 +3,22 @@ import ImageGallery from "../ImageGallery/ImageGallery";
 import Loader from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
-import Modal from "../ImageModal/ImageModal";
+import ImageModal from "../ImageModal/ImageModal";
 
 import { useState, useEffect } from "react";
 import fetchImagesWithTopic from "../../images-api";
+import { Image } from "../types";
 
 import style from "./App.module.css";
 
 function App() {
-  const [gallery, setGallery] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [page, setPage] = useState(1);
-  const [prevTopic, setPrevTopic] = useState("");
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [modalImg, setModalImg] = useState("");
+  const [gallery, setGallery] = useState<Image[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [prevTopic, setPrevTopic] = useState<string>("");
+  const [modalIsOpen, setIsOpen] = useState<boolean>(false);
+  const [modalImg, setModalImg] = useState<Image | string>("");
 
   useEffect(() => {
     async function getGallery() {
@@ -45,7 +46,7 @@ function App() {
     getGallery();
   }, [page, prevTopic]);
 
-  const handleSearch = async (topic) => {
+  const handleSearch = async (topic: string) => {
     setError(false);
     setLoading(false);
     setPage(1);
@@ -57,7 +58,7 @@ function App() {
     setPage((page) => page + 1);
   };
 
-  function openModal(img) {
+  function openModal(img: Image) {
     setModalImg(img);
     setIsOpen(true);
   }
@@ -73,12 +74,12 @@ function App() {
       {error && <ErrorMessage />}
       <ImageGallery gallery={gallery} openModal={openModal} />
       {gallery.length > 0 && <LoadMoreBtn onClick={handleLoadMore} />}
-      {modalIsOpen && (
-        <Modal
+      {modalIsOpen && typeof modalImg !== "string" && (
+        <ImageModal
           isOpen={modalIsOpen}
           closeModal={closeModal}
           imgUrl={modalImg.urls.regular}
-          imgDecription={modalImg.alt_description}
+          imgDescription={modalImg.alt_description}
           imgLikes={modalImg.likes}
           imgCreated={modalImg.created_at}
         />

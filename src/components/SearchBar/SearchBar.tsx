@@ -1,13 +1,18 @@
 import { IoIosSearch } from "react-icons/io";
 import toast, { Toaster } from "react-hot-toast";
-
+import { FormEvent } from "react";
 import style from "./SearchBar.module.css";
 
-export default function SearchBar({ onSubmit }) {
-  const handleSubmit = (e) => {
+type SearchBarProps = {
+  onSubmit: (topic: string) => void;
+};
+
+export default function SearchBar({ onSubmit }: SearchBarProps) {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = e.target;
-    const topic = form.elements.topic.value;
+    const form = e.currentTarget;
+    const topic = (form.elements.namedItem("topic") as HTMLInputElement).value;
+
     if (topic.trim() === "") {
       toast("Please, input else value.", {
         icon: "ℹ️",
