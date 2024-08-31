@@ -30,7 +30,7 @@ function App() {
         setLoading(true);
         setGallery([]);
 
-        const response = await fetchImagesWithTopic(prevTopic, page);
+        const response: Image[] = await fetchImagesWithTopic(prevTopic, page);
 
         setGallery([...gallery, ...response]);
 

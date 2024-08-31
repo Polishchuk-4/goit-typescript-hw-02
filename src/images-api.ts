@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Image } from "./components/types";
 
 axios.defaults.baseURL = "https://api.unsplash.com/";
 
@@ -16,7 +17,7 @@ const fetchImagesWithTopic = async (topic: string, page: number) => {
       Authorization: `Client-ID ${keyApiUnsplash}`,
     },
   });
-  return response.data.results;
+  return response.data.results as Image[];
 };
 
 export default fetchImagesWithTopic;
